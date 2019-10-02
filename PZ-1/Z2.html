@@ -32,12 +32,12 @@
 
 		function checkOrderItem(coffee, cookie) {
 
-			if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee == '') && 
-				(cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie == '')){
+			if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee.toLowerCase() == 'нет' || coffee == '') && 
+				(cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie.toLowerCase() == 'нет' ||  cookie == '')){
 				return null;
 			}
 
-			else if ((cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie == '')){
+			else if ((cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie.toLowerCase() == 'нет' || cookie == '')){
 
 				if (Object.keys(recipes).includes(coffee.toLowerCase())){
 					let check = checkIngredients(coffee);
@@ -48,7 +48,7 @@
 				else return 0;
 			}
 
-			else if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee == '')){
+			else if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee.toLowerCase() == 'нет' || coffee == '')){
 
 				if (cookies.indexOf(cookie.toLowerCase()) != -1){
 					return 3;
@@ -117,6 +117,9 @@
 
 		 	case (0):
 		 	console.log(dictionary.allNotOk);
+		 	if (Object.keys(recipes).includes(coffee.toLowerCase())){
+		 		console.log(`"--Памятка: нужно заказать ${missing}."`);
+		 	}
 		 	break;
 
 		 	case (1):
