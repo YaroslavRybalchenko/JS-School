@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Задача 3</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		/** Бабулькины рецепты. 
+		* На чердаке нашлись несколько тетрадок с рецептами кофе от бабушки, она была еще та любительница этого напитка. 
+		* В меню уже был раздел с её рецептом, 'oldfashion'. Теперь вы хотите удалить этот раздел и создать новый (grannys), со всеми известными
+		* бабулькиными рецептами (из текущего oldfashion тоже). Цена будет на все одна - 140.
+		* Обновите меню (создайте функцию menuRenovation, обновляющую текущее меню)
+		*/
+
+		const myCoffeeShopMenu = {
+		  classic: [{'latte': 130}, {'cappuccino': 120}, {'americano': 80}],
+		  author: [{'banana raf': 150}, {'cherry pie latte': 150}],
+		  ethic: [{'vegan apple cookie latte': 190}],
+		  oldfashion: [{'cezve turkish delight': 140}]
+		}
+
+		const grannysNote1 = ['hot sand coffee', 'brazilian night dark roast']
+		const grannysNote2 = ['Midterranian delux', 'Black Sea Flat white']
+
+		function menuRenovation(){
+			let arr = [];
+
+			for (key of grannysNote1){
+				arr.push({[key]:140});
+			}
+
+			for (key of grannysNote2){
+				arr.push({[key]:140});
+			}
+
+			arr.push(myCoffeeShopMenu.oldfashion[0]);
+
+			for (i of arr){
+				console.log(i);
+			}
+
+			delete myCoffeeShopMenu.oldfashion;
+			myCoffeeShopMenu.grannys = arr;
+
+		}
+
+		menuRenovation()
+		console.log(myCoffeeShopMenu)
+	</script>
+</head>
+<body>
+
+</body>
+</html>

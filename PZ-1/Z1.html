@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Задача 1</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		/**
+		 * Открываем кофешоп. Обучаем баристу общаться с клиентами.
+		 * Кофешоп поддерживает приют с котиками. Любой клиент может добавить пожертвование.
+		 *
+		 * menu - Наше меню с ценами.  
+		 * baristaAsk - запрос заказа
+		 * baristaSay - принимает заказ, пожертвование, вычисляет цену.
+		 * бариста принял заказ - отвечает "Вы заказали *кофе* и сделали пожертвование. С Вас *цена кофе+донат* рублей"
+		 * клиент спросил что-то не из меню - "Извините, ничем не могу помочь. Хорошего дня!"
+		 * order - знает размер пожертвования, оперирует вопросом и ответом баристы.
+		 */
+		const menu = {
+		  'ЛАТТЕ': 100, 
+		  'БАНАНОВЫЙ КАПУЧИНО': 120, 
+		  'ВАНИЛЬНЫЙ РАФ': 110, 
+		  'АМЕРИКАНО': 90
+		}
+
+		function baristaAsk(){
+		  let cupOfCoffee = prompt('Что желаете?', '');
+		  if (Object.is(cupOfCoffee, null)){ cupOfCoffee = ''; }
+		  return cupOfCoffee;
+		}
+
+		function baristaSay(coffee, charity) {
+
+		  if(Object.keys(menu).includes(coffee.toUpperCase())) {
+		  	return (`Вы заказали ${coffee} и сделали пожертвование. С Вас ${menu[coffee.toUpperCase()] + +charity} рублей`);
+		    }
+		    return ('Извините, ничем не могу помочь. Хорошего дня!');
+		}
+
+		function order(){
+		  const donation = '10';
+		  let cupOfCoffee = baristaAsk();
+		  let answer = baristaSay(cupOfCoffee,donation);
+		  return answer;
+		}
+
+		console.log(order())
+	</script>
+</head>
+<body>
+
+</body>
+</html>

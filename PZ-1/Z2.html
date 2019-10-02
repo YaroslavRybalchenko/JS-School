@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Задача 2</title>
+	<meta charset="utf-8">
+	<script type="text/javascript">
+		/**
+		 * Обучаам баристу инвентаризации.
+		 * Делается заказ, бариста проверяет, есть ли в меню такие кофе и печенье, 
+		 * сверяется с рецептом, смотрит наличие ингредиентов
+		 * и готовит заказ / извиняется и дозаказывает ингредиенты
+		 */
+        let missing = '';
+		const recipes = {
+		  'банановый латте': ['банановый сироп', 'молоко', 'кофе'],
+		  'черничный капучино': ['черничный сироп', 'молоко', 'кофе'],
+		  'баунти раф': ['раф-основа', 'кокосовое молоко', 'розовая соль'],
+		  'американо': ['кофе']
+		}
+
+		const cookies = ['шоколадное', 'овсяное', 'мятное', 'малиновое']
+
+		const box = {
+		  'банановый сироп': 2,
+		  'черничный сироп': 0,
+		  'молоко': 10,
+		  'кофе': 10,
+		  'раф-основа': 3, 
+		  'кокосовое молоко': 0, 
+		  'розовая соль': 1
+		}
+
+		function checkOrderItem(coffee, cookie) {
+
+			if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee == '') && 
+				(cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie == '')){
+				return null;
+			}
+
+			else if ((cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie == '')){
+
+				if (Object.keys(recipes).includes(coffee.toLowerCase())){
+					let check = checkIngredients(coffee);
+					if (check == 1) return 1;
+					else return 2;
+
+				}
+				else return 0;
+			}
+
+			else if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee == '')){
+
+				if (cookies.indexOf(cookie.toLowerCase()) != -1){
+					return 3;
+				}
+				else return 0;
+			}
+
+			else {
+				let checkcof = checkcoo = 0;
+
+				if (Object.keys(recipes).includes(coffee.toLowerCase())){
+					checkcof = checkIngredients(coffee);
+				}
+
+				if (cookies.indexOf(cookie.toLowerCase()) != -1){
+					checkcoo = 1;
+				} 
+
+				if (checkcof == 1 && checkcoo == 1){
+					return 4;
+				}
+
+				else if (checkcof == 1 && checkcoo == 0){
+					return 5;
+				}
+
+				else if (checkcof == 0 && checkcoo == 1){
+					return 6;
+				}
+
+				else return 0;
+
+			}
+		}
+
+		function checkIngredients(coffee){
+			let recipe = recipes[coffee];
+
+			for (key of recipe){
+				if (box[key] == 0){
+					missing = key;
+					return 0;
+				}
+			}
+			return 1;
+		}
+
+		function order(coffee, cookie) {	 
+		 const dictionary = {
+		   allOk:`Вот ваш заказ: ${coffee} и ${cookie} печенье! Хорошего дня!`,
+		   allNotOk:`Мы не можем обработать ваш заказ, извините.`,
+		   noCookie:`К сожалению, у нас нет такого печенья. Вот ваш ${coffee}.`,
+		   noCoffee:`К сожалению, сейчас не можем приготовить ${coffee}. Вот ваше ${cookie} печенье.`,
+		   onlyCoffee: `Вот ваш ${coffee}.`,
+		   onlyNoCoffee: `К сожалению, сейчас не можем приготовить ${coffee}.`,
+		   onlyCookie: `Вот ваше ${cookie} печенье.`,
+		   noOrder:'Вы ничего не заказали. До свидания.', 
+		 }
+		 let order = checkOrderItem(coffee,cookie);
+
+		 switch (order){
+
+		 	case (null):
+		 	console.log(dictionary.noOrder);
+		 	break;
+
+		 	case (0):
+		 	console.log(dictionary.allNotOk);
+		 	break;
+
+		 	case (1):
+		 	console.log(dictionary.onlyCoffee);
+		 	break;
+
+		 	case (2):
+		 	console.log(dictionary.onlyNoCoffee);
+		 	console.log(`"--Памятка: нужно заказать ${missing}."`);
+		 	break;
+
+		 	case (3):
+		 	console.log(dictionary.onlyCookie);
+		 	break;
+
+		 	case (4):
+		 	console.log(dictionary.allOk);
+		 	break;
+
+		 	case (5):
+		 	console.log(dictionary.noCookie);
+		 	break;
+
+		 	case (6):
+		 	console.log(dictionary.noCoffee);
+		 	if (Object.keys(recipes).includes(coffee.toLowerCase())){
+		 		console.log(`"--Памятка: нужно заказать ${missing}."`);
+		 	}
+		 	else console.log(`"--Такого кофе вообще в рецптах нету!"`);
+		 	break;
+
+		 }
+
+		 
+		  console.log('-----Следующий заказ-----')
+		}
+
+		let coffee = prompt('Добрый день, какой кофе желаете?','');
+		if (Object.is(coffee, null)){ coffee = ''; }
+		let cookie = prompt('Какое печенье будете?','');
+		if (Object.is(cookie, null)){ cookie = ''; }
+
+		order(coffee,cookie);
+
+
+
+		// Ожидаемый вывод //
+		/*
+		"Вот ваш заказ: американо и мятное печенье! Хорошего дня!"
+		"-----Следующий заказ-----"
+		"--Памятка: Нужно заказать кокосовое молоко"
+		"Мы не можем обработать ваш заказ, извините."
+		"-----Следующий заказ-----"
+		"Вот ваш заказ: банановый латте и мятное печенье! Хорошего дня!"
+		"-----Следующий заказ-----"
+		"--Памятка: Нужно заказать кокосовое молоко"
+		"К сожалению, сейчас не можем приготовить баунти раф. Вот ваше малиновое печенье"
+		"-----Следующий заказ-----"
+		*/
+	</script>
+</head>
+<body>
+
+</body>
+</html>
