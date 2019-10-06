@@ -30,59 +30,7 @@
 		  'розовая соль': 1
 		}
 
-		function checkOrderItem(coffee, cookie) {
-
-			if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee.toLowerCase() == 'нет' || coffee == '') && 
-				(cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie.toLowerCase() == 'нет' ||  cookie == '')){
-				return null;
-			}
-
-			else if ((cookie.toLowerCase() == 'никакое' || cookie.toLowerCase() == 'не буду' || cookie.toLowerCase() == 'нет' || cookie == '')){
-
-				if (Object.keys(recipes).includes(coffee.toLowerCase())){
-					let check = checkIngredients(coffee);
-					if (check == 1) return 1;
-					else return 2;
-
-				}
-				else return 0;
-			}
-
-			else if ((coffee.toLowerCase() == 'никакой' || coffee.toLowerCase() == 'не желаю' || coffee.toLowerCase() == 'нет' || coffee == '')){
-
-				if (cookies.indexOf(cookie.toLowerCase()) != -1){
-					return 3;
-				}
-				else return 0;
-			}
-
-			else {
-				let checkcof = checkcoo = 0;
-
-				if (Object.keys(recipes).includes(coffee.toLowerCase())){
-					checkcof = checkIngredients(coffee);
-				}
-
-				if (cookies.indexOf(cookie.toLowerCase()) != -1){
-					checkcoo = 1;
-				} 
-
-				if (checkcof == 1 && checkcoo == 1){
-					return 4;
-				}
-
-				else if (checkcof == 1 && checkcoo == 0){
-					return 5;
-				}
-
-				else if (checkcof == 0 && checkcoo == 1){
-					return 6;
-				}
-
-				else return 0;
-
-			}
-		}
+		const rejection = ['никакой', 'никакое', 'не желаю', 'не буду', 'нет', '']
 
 		function checkIngredients(coffee){
 			let recipe = recipes[coffee];
@@ -90,10 +38,65 @@
 			for (key of recipe){
 				if (box[key] == 0){
 					missing = key;
-					return 0;
+					return false;
 				}
 			}
-			return 1;
+			return true;
+		}
+
+		function checkOrderItem(coffee, cookie) {
+
+			if ( rejection.includes(coffee.toLowerCase()) && rejection.includes(cookie.toLowerCase()) ){
+				return null;
+			}
+
+			else if ( rejection.includes(cookie.toLowerCase()) ){
+
+				if (Object.keys(recipes).includes(coffee.toLowerCase())){
+					let check = checkIngredients((coffee.toLowerCase()));
+
+					if (check == 1) return 1;
+
+					else return 2;
+
+				}
+
+				else return 0;
+			}
+
+			else if ( rejection.includes(coffee.toLowerCase()) ){
+
+				if (cookies.includes(cookie.toLowerCase())) return 3;
+				
+				else return 0;
+			}
+
+			else {
+				let checkcof = checkcoo = false;
+
+				if (Object.keys(recipes).includes(coffee.toLowerCase())){
+					checkcof = checkIngredients((coffee.toLowerCase()));
+				}
+
+				if (cookies.includes(cookie.toLowerCase())){
+					checkcoo = true;
+				} 
+
+				if (checkcof && checkcoo){
+					return 4;
+				}
+
+				else if (checkcof && !checkcoo){
+					return 5;
+				}
+
+				else if (!checkcof && checkcoo){
+					return 6;
+				}
+
+				else return 0;
+
+			}
 		}
 
 		function order(coffee, cookie) {	 

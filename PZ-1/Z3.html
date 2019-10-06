@@ -18,25 +18,17 @@
 		  oldfashion: [{'cezve turkish delight': 140}]
 		}
 
-		const grannysNote1 = ['hot sand coffee', 'brazilian night dark roast']
+		const grannysNote1 = ['hot sand coffee', 'brazilian night dark roast',]
 		const grannysNote2 = ['Midterranian delux', 'Black Sea Flat white']
 
 		function menuRenovation(){
 			let arr = [];
 
-			for (key of grannysNote1){
-				arr.push({[key]:140});
-			}
-
-			for (key of grannysNote2){
+			for (key of grannysNote1.concat(grannysNote2)){
 				arr.push({[key]:140});
 			}
 
 			arr.push(myCoffeeShopMenu.oldfashion[0]);
-
-			for (i of arr){
-				console.log(i);
-			}
 
 			delete myCoffeeShopMenu.oldfashion;
 			myCoffeeShopMenu.grannys = arr;
