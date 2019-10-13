@@ -366,6 +366,10 @@ function getOrder(val){ //собирает заказ
 		else if (coffeeTypes[val].name == 'cherrySyrup'){curOrder.syrup++;}
 	}
 	else curOrder.name = coffeeTypes[val].name;
+	if ((curOrder.name == 'milk') && (coffeeTypes[val].name == 'espresso')){
+		curOrder.name = 'espresso';
+		curOrder.milk++;
+	}
 	curOrder.vol += coffeeTypes[val].vol;
 	curOrder.price += coffeeTypes[val].price;
 	testCookOrder(curOrder);
@@ -378,6 +382,7 @@ function getOrder(val){ //собирает заказ
 function payment(){ //оплачивает заказ
 	cookOrder(curOrder);
 	orderTime(curOrder);
+	//alert(ingredients[0].vol);
 	manager(8);
 	checkIngredients();
 	checkCupPossible();
