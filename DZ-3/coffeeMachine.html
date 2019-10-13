@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="coffeeMachine.css">
+	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="container">
+		<div id='operWindow'>
+			<h1 id='h1'>НАПИТОК В ЗОНЕ ВЫДАЧИ</h1>
+			<textarea id='orderWindow'></textarea>
+			<button id="abortion">Отмена заказа</button>
+			<img id='image' src="http://source.unsplash.com/200x200/?coffee">
+			<progress id='progress' value="0" max="100">
+			<audio id="sound" src="sound.mp3" preload="auto" loop></audio>
+		</div>
+		<div><button id="espresso">Эспрессо</button></div>
+		<div><button id="latte">Латте</button></div>
+		<div><button id="cappuccino">Капучино</button></div>
+		<div><button id="banLatte">Банановый латте</button></div>
+		<div><button id="vanCappuccino">Ванильный капучино</button></div>
+		<div><button id="flatWhite">Флэт уайт</button></div>
+		<div><button id="milk">Молоко</button></div>
+		<div><button id="cherrySyrup">Вишневый сироп</button></div>
+		<div><button id="pay">Оплата</button></div>
+	</div>
+	<script type="text/javascript" src="coffeeMachine.js"></script>
+</body>
+</html>

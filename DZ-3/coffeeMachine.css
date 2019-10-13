@@ -1,0 +1,90 @@
+* {
+	font-family: 'Playfair Display';
+}
+.body {
+	margin: 0%;
+	padding: 0%;
+}
+button {
+	width:100%;
+	height:10rem;
+	border: 1px solid #0a3c59;
+	border-radius: 10px;
+}
+
+button:disabled{
+	opacity: 0.5;
+}
+
+button:enabled:hover{
+	border: 2px solid black;
+	background-color: rgb(224,224,224);
+}
+
+
+#h1 {
+	font-size: 3rem;
+	color: red;
+	position: absolute;
+	right: 28%;
+	bottom: 15rem;
+	visibility: hidden;
+	z-index: 10;
+}
+
+#orderWindow {
+	resize: none;
+	display: inline-block;
+	height: 10rem;
+	width: 80%;
+	border-radius: 5px;
+	border: 2px solid black;
+}
+#abortion {
+	display: inline-block;
+	position: relative;
+	bottom: 2.3rem;
+	left: 2rem;
+	width: 15rem;
+	height: 5rem;
+}
+#image {
+	position: absolute;
+	right: 43%;
+	visibility: hidden;
+}
+#progress {
+	height: 2rem;
+	width: 40rem;
+	top: 5rem;
+	position: absolute;
+	right: 29%;
+	visibility: hidden;
+}
+.container {
+    display: grid; /*Использование сетки grid*/
+    grid-template-columns:1fr 1fr 1fr; /*Относительные единицы измерения */
+    grid-template-rows: 30% 25% 25%;
+    grid-gap: 2%;
+
+}
+#operWindow {
+	grid-column: 1 / 4;
+	width: 100%;
+}
+
+.blink {
+	border: 2px solid #ff0000;
+	-webkit-animation: blink 1.3s linear infinite;
+	animation: blink 1.3s linear infinite;
+	}
+@-webkit-keyframes blink {
+50% { border-color: rgb(34, 34, 34); }
+51% { border-color: rgba(34, 34, 34, 0); }
+100% { border-color: rgba(34, 34, 34, 0); }
+}
+@keyframes blink {
+50% { border-color: rgb(34, 34, 34); }
+51% { border-color: rgba(34, 34, 34, 0); }
+100% { border-color: rgba(34, 34, 34, 0); }
+}
