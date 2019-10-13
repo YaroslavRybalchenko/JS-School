@@ -58,6 +58,8 @@ let onTimer, offTimer; //таймеры включения/выключения 
 
 let time; //время приготовления напитка
 
+let espressoCounter = 0; //Считает количество эспрессо
+
 function orderTime(order){ //определяет время приготовления напитка
 	if (((order.name == 'cappuccino') || (order.name == 'latte') || (order.name == 'espresso')) && 
 		(order.syrup == 0) && (order.milk == 0)){
@@ -370,6 +372,7 @@ function getOrder(val){ //собирает заказ
 		curOrder.name = 'espresso';
 		curOrder.milk++;
 	}
+	if (coffeeTypes[val].name == 'espresso') espressoCounter++;
 	curOrder.vol += coffeeTypes[val].vol;
 	curOrder.price += coffeeTypes[val].price;
 	testCookOrder(curOrder);
@@ -380,6 +383,7 @@ function getOrder(val){ //собирает заказ
 }
 
 function payment(){ //оплачивает заказ
+	espressoCounter = 0;
 	cookOrder(curOrder);
 	orderTime(curOrder);
 	//alert(ingredients[0].vol);
@@ -390,8 +394,9 @@ function payment(){ //оплачивает заказ
 }
 
 function showOrder(order) { //выводит информацию о заказе в окошко
-	let message = `Ваш заказ: ` + order.name + `\n`;
-    if (order.milk > 0) message += `Доп.молоко: ` + order.milk + `\n`;
+	let message = `Ваш заказ: ` + order.name;
+	if (espressoCounter > 1) message += ` (x${espressoCounter})`
+    if (order.milk > 0) message += `\nДоп.молоко: ` + order.milk + `\n`;
     if (order.syrup > 0) message += `Доп. вишневый сироп: ` + order.syrup;
 	orderWindow.innerHTML = message;
 }
@@ -405,7 +410,7 @@ checkIngredients();
 checkCups();
 copy();
 
-abortion.onclick = function(){ manager(null); checkIngredients();}
+abortion.onclick = function(){ manager(null); checkIngredients(); espressoCounter = 0;}
 espresso.click.onclick = function(){ getOrder(0);}
 latte.click.onclick = function(){ getOrder(1);}
 cappuccino.click.onclick = function(){ getOrder(2);}
